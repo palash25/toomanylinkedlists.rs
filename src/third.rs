@@ -15,9 +15,9 @@
 //               |
 // list3 -> X ---+
 
-use std::rc::Rc;
+use std::sync::Arc;
 
-type Link<T> = Option<Rc<Node<T>>>;
+type Link<T> = Option<Arc<Node<T>>>;
 
 pub struct Node<T> {
     elem: T,
@@ -45,7 +45,7 @@ impl<T> List<T> {
 
     pub fn prepend(&self, elem: T) -> List<T> {
         List {
-            head: Some(Rc::new(Node {
+            head: Some(Arc::new(Node {
                 elem: elem,
                 next: self.head.clone(),
             })),
@@ -83,7 +83,7 @@ impl<T> Drop for List<T> {
         // we can't pull the node out of the Rc like we did in the case of Box
         let mut head = self.head.take();
         while let Some(node) = head {
-            if let Ok(mut node) = Rc::try_unwrap(node) {
+            if let Ok(mut node) = Arc::try_unwrap(node) {
                 head = node.next.take();
             } else {
                 break;

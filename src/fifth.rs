@@ -72,6 +72,7 @@ impl<'a, T> List<'a, T> {
         match self.head.take() {
             None => None,
             Some(old_head) => {
+                // tihs code is wrong since it leaves self.tail dangling
                 self.head = old_head.next;
                 Some(old_head.elem)
             }
@@ -79,7 +80,7 @@ impl<'a, T> List<'a, T> {
     }
 }
 
-#[cfg(test)]
+//#[cfg(test)]
 //mod test {
 //    use super::List;
 //    #[test]

@@ -1,3 +1,5 @@
+pub mod fifth;
+pub mod fifth_unsafe;
 pub mod first;
 pub mod fourth;
 pub mod second;
@@ -15,4 +17,6 @@ If you wish to have the best of both implementations, you could add a new method
 fn pop_node(&mut self) -> Link, from-which pop and drop can both be cleanly derived.
 
 https://rust-unofficial.github.io/too-many-lists/first-drop.html
+
+Interior mutability is great for writing safe applications. Not so much safe libraries.
 */
